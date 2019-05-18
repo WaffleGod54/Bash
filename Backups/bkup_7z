@@ -1,6 +1,5 @@
 #!/bin/bash
 spacer="----------------------------------------------------------------"
-CODE=`date +%m%d`
  
 echo -e "$spacer\nEnter the directory path you would like to backup\n$spacer"
 read location
