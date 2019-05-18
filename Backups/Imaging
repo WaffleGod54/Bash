@@ -1,0 +1,35 @@
+#!/bin/bash
+cd /mnt/Backlog/MSFB
+
+CODE=`date +%m%d`
+FILECHECK=/mnt/Backlog/MSFB/$CODE
+backupCount=$(find . -type f | wc -l)
+if (( backupCount == 5 ));
+then
+    if [ -f "$FILECHECK.img" ]; then
+        echo "Rebuilding Archive with today's Code..."
+        echo "Removing old archive...(This May Take a Minute)" 
+        sudo rm $CODE.img -f
+        echo "Rebuilding..."
+        sudo dd if=/dev/loop0 of=/mnt/Backlog/MSFB/$CODE.img bs=4096 conv=noerror status=progress
+    else
+        echo "There are 5 Backups, Deleting Oldest Archive...(This May Take a Minute)"
+        sudo rm "$(ls -t | tail -1)" -f
+        echo "Building Archive with today's Code..."
+        sudo dd if=/dev/loop0 of=/mnt/Backlog/MSFB/$CODE.img bs=4096 conv=noerror status=progress
+    fi
+else
+    if [ -f "$FILECHECK.img" ]; then
+        echo "Rebuilding Archive with today's Code..."
+        echo "Removing old archive...(This May Take a Second)" 
+        sudo rm $CODE.img -f
+        echo "Rebuilding..."
+        sudo dd if=/dev/loop0 of=/mnt/Backlog/MSFB/$CODE.img bs=4096 conv=noerror status=progress
+    else
+        echo "No Archive's found with today's code, Building new Archive..."
+        sudo dd if=/dev/loop0 of=$CODE.img bs=4096 conv=noerror status=progress
+    fi
+fi
+
+#ToDo
+#Add support to choose what Disk/Partition to back up and where to put it
