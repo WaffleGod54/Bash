@@ -23,3 +23,4 @@ FILECHECK=$location/$code.7z
 
 #To Do
 #Create password Support and give an option to add a password
+#Create A confirmation Notice
