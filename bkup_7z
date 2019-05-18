@@ -1,0 +1,45 @@
+#!/bin/bash
+spacer="----------------------------------------------------------------"
+CODE=`date +%m%d`
+ 
+echo -e "$spacer\nEnter the directory path you would like to backup\n$spacer"
+read location
+cd $location || exit 1
+
+echo -e "$spacer\nEnter the directory where the backup should go\n$spacer"
+read backlog
+cd $backlog || exit 1
+cd $location
+
+backupCount=$(find . -type f | wc -l)
+FILECHECK=$location/$code.7z
+
+if (( backupCount == 5 ));
+then
+    if [ -a $FILECHECK.7z ]; then
+        echo "Rebuilding Archive with today's Code..."
+        echo "Removing old archive...(This May Take a Minute)" 
+        rm $CODE.7z -f
+        echo "Rebuilding..."
+        7z a -mhe $backlog/$CODE.7z
+    else
+        echo "There are 5 Backups, Deleting Oldest Archive...(This May Take a Minute)"
+        rm "$(ls -t | tail -1)" -f
+        echo "Building Archive with today's Code..."
+        7z a -mhe $backlog/$CODE.7z
+    fi
+else
+    if [ -f $FILECHECK.7z ]; then
+        echo "test"
+        echo "Rebuilding Archive with today's Code..."
+        echo "Removing old archive...(This May Take a Second)" 
+        echo "Rebuilding..."
+        7z a -mhe $backlog/$CODE.7z
+    else
+        echo "No Archive's found with today's code, Building new Archive..."
+        7z a -mhe $backlog/$CODE.7z
+    fi
+fi
+
+#Issues
+#No Password Suupport
