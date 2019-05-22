@@ -1,0 +1,25 @@
+#!/bin/bash
+spacer="----------------------------------------------------------------"
+echo -e "\n$spacer\nEnter the directory you would like to scramble\n$spacer"
+read location
+cd $location || exit 1
+
+exec > /dev/null 2>&1
+cd $location
+for file in *.jpg; do
+       new_file="$(mktemp XXXXXXXXXXXXXXXX.jpg)"
+       mv -f -- "$file" "$new_file"
+done
+for file in *.jpeg; do
+	new_file="$(mktemp XXXXXXXXXXXXXXXX.jpeg)"
+    mv -f -- "$file" "$new_file"
+done
+for file in *.gif; do
+   	new_file="$(mktemp XXXXXXXXXXXXXXXX.gif)"
+   	mv -f -- "$file" "$new_file"
+done
+for file in *.png; do
+    new_file="$(mktemp XXXXXXXXXXXXXXXX.png)"
+    mv -f -- "$file" "$new_file"
+done
+find . -name "*.*" -size -1k -delete
