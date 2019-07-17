@@ -7,13 +7,13 @@ Collection()
 {
         date +%m-%d-%j >> ~/log/IP_collection.log
         printf "\nIP: 53/24\n" >> ~/logs/IP_collection.log
-        ssh pi@192.168.0.53 "curl http://ipinfo.io" >> ~/logs/IP_collection.log
+        ssh pi@172.168.0.53 "curl http://ipinfo.io" >> ~/logs/IP_collection.log
         printf "\nIP: 54/24\n" >> ~/logs/IP_collection.log
-        ssh pi@192.168.0.54 "curl http://ipinfo.io" >> ~/logs/IP_collection.log
+        ssh pi@172.168.0.54 "curl http://ipinfo.io" >> ~/logs/IP_collection.log
         printf "\nIP: 55/24\n" >> ~/logs/IP_collection.log
-        ssh pi@192.168.0.55 "curl http://ipinfo.io" >> ~/logs/IP_collection.log
+        ssh pi@172.168.0.55 "curl http://ipinfo.io" >> ~/logs/IP_collection.log
         printf "\nIP: 56/24\n" >> ~/logs/IP_collection.log
-        curl http://ipinfo.io >> ~/logs/IP_collection.log
+        ssh pi@172.168.0.56 "curl http://ipinfo.io" >> ~/logs/IP_collection.log
 }
 
 if [[ $(date +%u) -gt 6 ]];
